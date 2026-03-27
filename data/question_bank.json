@@ -1,0 +1,183 @@
+{
+  "topics": {
+    "toan": {
+      "name": "Toán học",
+      "subtopics": {
+        "dai_so": {
+          "name": "Đại số",
+          "questions": {
+            "easy": [
+              {"id": "toan_ds_01", "content": "Giải phương trình: 2x + 5 = 13", "difficulty": 1, "expected_time": 3},
+              {"id": "toan_ds_02", "content": "Tính: (-3) + 7 - 2", "difficulty": 1, "expected_time": 2},
+              {"id": "toan_ds_03", "content": "Rút gọn: 3x + 2x", "difficulty": 1, "expected_time": 2},
+              {"id": "toan_ds_04", "content": "Tìm x biết: x/4 = 5", "difficulty": 1, "expected_time": 3},
+              {"id": "toan_ds_05", "content": "Tính giá trị biểu thức 2a + 3 khi a = 4", "difficulty": 1, "expected_time": 2}
+            ],
+            "medium": [
+              {"id": "toan_ds_06", "content": "Giải hệ phương trình: x + y = 10, x - y = 4", "difficulty": 3, "expected_time": 8},
+              {"id": "toan_ds_07", "content": "Phân tích đa thức: x² - 9 thành nhân tử", "difficulty": 3, "expected_time": 5},
+              {"id": "toan_ds_08", "content": "Giải bất phương trình: 3x - 7 > 2", "difficulty": 3, "expected_time": 5},
+              {"id": "toan_ds_09", "content": "Rút gọn: (x² - 4)/(x - 2)", "difficulty": 3, "expected_time": 6},
+              {"id": "toan_ds_10", "content": "Tìm GTLN, GTNN của y = -x² + 4x + 1", "difficulty": 4, "expected_time": 8}
+            ],
+            "hard": [
+              {"id": "toan_ds_11", "content": "Giải hệ: x² + y² = 25, x + y = 7", "difficulty": 7, "expected_time": 15},
+              {"id": "toan_ds_12", "content": "Chứng minh: (a+b)³ = a³ + 3a²b + 3ab² + b³", "difficulty": 7, "expected_time": 12},
+              {"id": "toan_ds_13", "content": "Tìm m để phương trình x² - 2mx + m² - 1 = 0 có 2 nghiệm phân biệt", "difficulty": 8, "expected_time": 15},
+              {"id": "toan_ds_14", "content": "Giải phương trình: √(x+3) + √(x-1) = 4", "difficulty": 8, "expected_time": 12},
+              {"id": "toan_ds_15", "content": "Tìm điều kiện để biểu thức √(x² - 5x + 6) / (x - 3)有意义", "difficulty": 9, "expected_time": 10}
+            ]
+          }
+        },
+        "hinh_hoc": {
+          "name": "Hình học",
+          "questions": {
+            "easy": [
+              {"id": "toan_hh_01", "content": "Tính chu vi hình chữ nhật có a=5, b=3", "difficulty": 1, "expected_time": 2},
+              {"id": "toan_hh_02", "content": "Tính diện tích hình tròn có r=7", "difficulty": 1, "expected_time": 3},
+              {"id": "toan_hh_03", "content": "Tính thể tích khối lập phương cạnh a=4", "difficulty": 1, "expected_time": 2},
+              {"id": "toan_hh_04", "content": "Cho tam giác ABC vuông tại A, AB=3, AC=4. Tính BC", "difficulty": 2, "expected_time": 3},
+              {"id": "toan_hh_05", "content": "Tính diện tích tam giác có đáy=10, cao=6", "difficulty": 1, "expected_time": 2}
+            ],
+            "medium": [
+              {"id": "toan_hh_06", "content": "Cho đường tròn tâm O bán kính R. Tính diện tích hình quạt có góc 60°", "difficulty": 4, "expected_time": 7},
+              {"id": "toan_hh_07", "content": "Cho tứ giác ABCD, AB//CD, AB=8, CD=5, h=4. Tính diện tích", "difficulty": 3, "expected_time": 5},
+              {"id": "toan_hh_08", "content": "Cho hình chóp S.ABCD có đáy là hình vuông cạnh a. Tính thể tích", "difficulty": 4, "expected_time": 8},
+              {"id": "toan_hh_09", "content": "Tính diện tích xung quanh hình trụ có r=3, h=10", "difficulty": 3, "expected_time": 5},
+              {"id": "toan_hh_10", "content": "Cho tam giác ABC, AB=5, AC=7, góc A=60°. Tính BC", "difficulty": 5, "expected_time": 10}
+            ],
+            "hard": [
+              {"id": "toan_hh_11", "content": "Cho hình nón có generatrix l=10, r=6. Tính diện tích toàn phần và thể tích", "difficulty": 7, "expected_time": 12},
+              {"id": "toan_hh_12", "content": "Chứng minh định lý Pythagoras bằng phương pháp hình học", "difficulty": 8, "expected_time": 15},
+              {"id": "toan_hh_13", "content": "Cho mặt cầu nội tiếp hình chóp đều. Tìm tỉ số diện tích", "difficulty": 9, "expected_time": 18},
+              {"id": "toan_hh_14", "content": "Tính góc giữa hai mặt phẳng trong tứ diện đều", "difficulty": 8, "expected_time": 15},
+              {"id": "toan_hh_15", "content": "Cho elip x²/25 + y²/16 = 1. Tìm tiêu cự, đỉnh, tâm", "difficulty": 9, "expected_time": 12}
+            ]
+          }
+        },
+        "xac_suat": {
+          "name": "Xác suất - Thống kê",
+          "questions": {
+            "easy": [
+              {"id": "toan_xs_01", "content": "Tung 1 đồng xu 2 lần. Tính P(được 1 mặt sấp)", "difficulty": 1, "expected_time": 3},
+              {"id": "toan_xs_02", "content": "Tính trung bình cộng: 5, 7, 8, 6, 9", "difficulty": 1, "expected_time": 2},
+              {"id": "toan_xs_03", "content": "Cho tần số: 2, 3, 5, 4, 1. Tính tần suất", "difficulty": 1, "expected_time": 3}
+            ],
+            "medium": [
+              {"id": "toan_xs_04", "content": "Trong hộp có 3 bi đỏ, 5 bi xanh. Lấy 2 bi không hoàn lại. P(đều đỏ)?", "difficulty": 4, "expected_time": 8},
+              {"id": "toan_xs_05", "content": "Tính phương sai của dãy: 2, 4, 6, 8, 10", "difficulty": 4, "expected_time": 7},
+              {"id": "toan_xs_06", "content": "Cho phân bố nhị thức B(5, 0.4). Tính P(X=3)", "difficulty": 5, "expected_time": 8}
+            ],
+            "hard": [
+              {"id": "toan_xs_07", "content": "Cho phân bố chuẩn N(50, 100). Tính P(40 < X < 60)", "difficulty": 8, "expected_time": 12},
+              {"id": "toan_xs_08", "content": "Kiểm định giả thuyết với mẫu n=30, x̄=52, σ=10, H0: μ=50", "difficulty": 9, "expected_time": 15}
+            ]
+          }
+        }
+      }
+    },
+    "vat_ly": {
+      "name": "Vật lý",
+      "subtopics": {
+        "co_hoc": {
+          "name": "Cơ học",
+          "questions": {
+            "easy": [
+              {"id": "vl_ch_01", "content": "Ô tô chạy 60km/h trong 2h. Quãng đường đi được?", "difficulty": 1, "expected_time": 2},
+              {"id": "vl_ch_02", "content": "Tính gia tốc của vật từ nghỉ đạt 20m/s sau 4s", "difficulty": 1, "expected_time": 3},
+              {"id": "vl_ch_03", "content": "Lực F=10N tác dụng lên vật 2kg. Tính gia tốc", "difficulty": 1, "expected_time": 2}
+            ],
+            "medium": [
+              {"id": "vl_ch_04", "content": "Vật ném thẳng đứng lên với v0=20m/s. Tính độ cao cực đại", "difficulty": 4, "expected_time": 7},
+              {"id": "vl_ch_05", "content": "Tính công của lực F=50N kéo vật 10m với góc 30° so với phương ngang", "difficulty": 4, "expected_time": 6},
+              {"id": "vl_ch_06", "content": "Xác định vận tốc của vật ở chân dốc cao 5m (bỏ ma sát)", "difficulty": 5, "expected_time": 8}
+            ],
+            "hard": [
+              {"id": "vl_ch_07", "content": "Tính momen lực F=20N tại điểm cách trục quay 0.5m, góc 45°", "difficulty": 7, "expected_time": 10},
+              {"id": "vl_ch_08", "content": "Xác định vận tốc thiên thạch rơi từ vô cực xuống Trái Đất", "difficulty": 9, "expected_time": 15}
+            ]
+          }
+        },
+        "dien": {
+          "name": "Điện học",
+          "questions": {
+            "easy": [
+              {"id": "vl_dn_01", "content": "Suất điện động 12V, điện trở ngoài 4Ω. Tính cường độ dòng điện", "difficulty": 2, "expected_time": 3},
+              {"id": "vl_dn_02", "content": "Hai điện trở 4Ω mắc song song. Tính điện trở tương đương", "difficulty": 1, "expected_time": 2},
+              {"id": "vl_dn_03", "content": "Tính công suất tiêu thụ của bóng đèn 220V, 100W sau 2h", "difficulty": 1, "expected_time": 3}
+            ],
+            "medium": [
+              {"id": "vl_dn_04", "content": "Mạch RLC nối tiếp với R=10Ω, L=0.1H, C=100μF. Tính tần số cộng hưởng", "difficulty": 5, "expected_time": 10},
+              {"id": "vl_dn_05", "content": "Tính năng lượng từ trường cuộn cảm L=0.5H, I=2A", "difficulty": 4, "expected_time": 6},
+              {"id": "vl_dn_06", "content": "Điện áp xoay chiều u=311sin(100πt). Tính U_hiệu dụng, tần số", "difficulty": 5, "expected_time": 8}
+            ],
+            "hard": [
+              {"id": "vl_dn_07", "content": "Tính suất điện động cảm ứng trong cuộn dây khi từ thông thay đổi Φ=0.02t²", "difficulty": 8, "expected_time": 12},
+              {"id": "vl_dn_08", "content": "Phân tích mạch transistor khuếch đại một cấp", "difficulty": 9, "expected_time": 18}
+            ]
+          }
+        },
+        "quang_hoc": {
+          "name": "Quang học",
+          "questions": {
+            "easy": [
+              {"id": "vl_qh_01", "content": "Tính góc khúc xạ khi ánh sáng đi từ không khí vào nước (n=1.33), góc tới 30°", "difficulty": 2, "expected_time": 4},
+              {"id": "vl_qh_02", "content": "Vật đặt cách thấu kính hội tụ 20cm, f=15cm. Tính khoảng cách ảnh", "difficulty": 2, "expected_time": 5}
+            ],
+            "medium": [
+              {"id": "vl_qh_03", "content": "Tính góc tới cực khi ánh sáng đi từ thủy tinh (n=1.5) sang không khí", "difficulty": 4, "expected_time": 6},
+              {"id": "vl_qh_04", "content": "Xác định vị trí và tính chất ảnh qua hệ hai thấu kính", "difficulty": 6, "expected_time": 12}
+            ],
+            "hard": [
+              {"id": "vl_qh_05", "content": "Tính số giao thoa trên màn cách Young 1m, d=0.5mm, λ=600nm", "difficulty": 8, "expected_time": 12},
+              {"id": "vl_qh_06", "content": "Phân tích quang phổ vạch của nguyên tử hiđrô", "difficulty": 9, "expected_time": 15}
+            ]
+          }
+        }
+      }
+    },
+    "hoa_hoc": {
+      "name": "Hóa học",
+      "subtopics": {
+        "vo_co": {
+          "name": "Hóa vô cơ",
+          "questions": {
+            "easy": [
+              {"id": "hh_vc_01", "content": "Cân bằng: Fe + O₂ → Fe₂O₃", "difficulty": 1, "expected_time": 3},
+              {"id": "hh_vc_02", "content": "Tính khối lượng mol của H₂SO₄", "difficulty": 1, "expected_time": 2},
+              {"id": "hh_vc_03", "content": "Xác định số oxi hóa của Mn trong KMnO₄", "difficulty": 2, "expected_time": 3}
+            ],
+            "medium": [
+              {"id": "hh_vc_04", "content": "Cho 5.6g Fe tác dụng với dung dịch HCl. Tính thể tích khí H₂ (đktc)", "difficulty": 4, "expected_time": 8},
+              {"id": "hh_vc_05", "content": "Xác định hiện tượng khi nhỏ NaOH vào dung dịch CuSO₄", "difficulty": 3, "expected_time": 5},
+              {"id": "hh_vc_06", "content": "Tính pH của dung dịch HCl 0.01M", "difficulty": 4, "expected_time": 5}
+            ],
+            "hard": [
+              {"id": "hh_vc_07", "content": "Tính hằng số cân bằng Kc cho phản ứng N₂ + 3H₂ ⇌ 2NH₃", "difficulty": 8, "expected_time": 15},
+              {"id": "hh_vc_08", "content": "Xác định sản phẩm và viết PTHH khi Al tác dụng với NaOH đậm đặc", "difficulty": 7, "expected_time": 10}
+            ]
+          }
+        },
+        "huu_co": {
+          "name": "Hóa hữu cơ",
+          "questions": {
+            "easy": [
+              {"id": "hh_hc_01", "content": "Viết công thức cấu tạo của etanol", "difficulty": 1, "expected_time": 2},
+              {"id": "hh_hc_02", "content": "Đặt tên phân tử CH₃-CH₂-CH₃ theo IUPAC", "difficulty": 1, "expected_time": 2},
+              {"id": "hh_hc_03", "content": "Phân biệt ancol bậc 1, bậc 2, bậc 3", "difficulty": 2, "expected_time": 4}
+            ],
+            "medium": [
+              {"id": "hh_hc_04", "content": "Viết PTHH este hóa giữa axit axetic và etanol", "difficulty": 3, "expected_time": 5},
+              {"id": "hh_hc_05", "content": "Xác định đồng phân của C₄H₁₀O", "difficulty": 5, "expected_time": 10},
+              {"id": "hh_hc_06", "content": "Phân biệt phản ứng cộng và phản ứng thế ở anken", "difficulty": 4, "expected_time": 6}
+            ],
+            "hard": [
+              {"id": "hh_hc_07", "content": "Xác định công thức phân tử qua phân tích % khối lượng C, H, O", "difficulty": 8, "expected_time": 15},
+              {"id": "hh_hc_08", "content": "Viết quy trình tổng hợp axit axetic từ metan", "difficulty": 9, "expected_time": 15}
+            ]
+          }
+        }
+      }
+    }
+  }
+}

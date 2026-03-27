@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập - EduSmart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --primary-light: #818cf8;
+        --accent: #a78bfa;
+        --bg-start: #0f0c29;
+        --bg-mid: #302b63;
+        --bg-end: #24243e;
+        --card-bg: rgba(255, 255, 255, 0.07);
+        --card-border: rgba(255, 255, 255, 0.12);
+        --input-bg: rgba(255, 255, 255, 0.06);
+        --input-border: rgba(255, 255, 255, 0.1);
+        --input-focus: rgba(99, 102, 241, 0.5);
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --success: #34d399;
+        --error: #f87171;
+        --radius: 14px;
+        --radius-sm: 10px;
+      }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .bg-orbs {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .bg-orbs .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.4;
+        animation: float 20s ease-in-out infinite;
+      }
+
+      .bg-orbs .orb:nth-child(1) {
+        width: 500px; height: 500px;
+        background: radial-gradient(circle, #6366f1, transparent 70%);
+        top: -10%; left: -10%;
+        animation-delay: 0s;
+      }
+
+      .bg-orbs .orb:nth-child(2) {
+        width: 400px; height: 400px;
+        background: radial-gradient(circle, #a78bfa, transparent 70%);
+        bottom: -10%; right: -10%;
+        animation-delay: -7s;
+        animation-duration: 25s;
+      }
+
+      .bg-orbs .orb:nth-child(3) {
+        width: 300px; height: 300px;
+        background: radial-gradient(circle, #818cf8, transparent 70%);
+        top: 50%; left: 60%;
+        animation-delay: -14s;
+        animation-duration: 22s;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25% { transform: translate(40px, -30px) scale(1.05); }
+        50% { transform: translate(-20px, 20px) scale(0.95); }
+        75% { transform: translate(30px, 40px) scale(1.02); }
+      }
+
+      .card {
+        position: relative;
+        z-index: 1;
+        background: var(--card-bg);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        padding: 44px 40px;
+        max-width: 440px;
+        width: 100%;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+        animation: cardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      @keyframes cardIn {
+        from { opacity: 0; transform: translateY(30px) scale(0.96); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+
+      .brand-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      }
+
+      .brand-icon svg {
+        width: 22px;
+        height: 22px;
+        fill: white;
+      }
+
+      .brand-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.3px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .header h1 {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+      }
+
+      .header p {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-size: 13px;
+        letter-spacing: 0.2px;
+      }
+
+      .input-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .input-icon {
+        position: absolute;
+        left: 14px;
+        width: 18px;
+        height: 18px;
+        color: var(--text-muted);
+        pointer-events: none;
+        transition: color 0.2s;
+        z-index: 2;
+      }
+
+      .input-wrap input {
+        width: 100%;
+        padding: 13px 14px 13px 44px;
+        background: var(--input-bg);
+        border: 1.5px solid var(--input-border);
+        border-radius: var(--radius-sm);
+        font-size: 15px;
+        color: var(--text-primary);
+        font-family: inherit;
+        transition: all 0.25s ease;
+        outline: none;
+      }
+
+      .input-wrap input::placeholder {
+        color: var(--text-muted);
+      }
+
+      .input-wrap input:focus {
+        border-color: var(--primary);
+        background: rgba(99, 102, 241, 0.06);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+      }
+
+      .input-wrap input:focus ~ .input-icon,
+      .input-wrap input:focus + .input-icon {
+        color: var(--primary-light);
+      }
+
+      .toggle-pw {
+        position: absolute;
+        right: 12px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--text-muted);
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s;
+        z-index: 2;
+        width: auto;
+        margin: 0;
+      }
+
+      .toggle-pw:hover {
+        color: var(--text-secondary);
+        transform: none;
+        box-shadow: none;
+      }
+
+      .toggle-pw svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .btn-primary {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        margin-top: 8px;
+        letter-spacing: 0.2px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, transparent, rgba(255,255,255,0.1));
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+      }
+
+      .btn-primary:hover:not(:disabled)::before {
+        opacity: 1;
+      }
+
+      .btn-primary:active:not(:disabled) {
+        transform: translateY(0);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        margin: 24px 0;
+        gap: 12px;
+      }
+
+      .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--card-border);
+      }
+
+      .divider span {
+        color: var(--text-muted);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .links {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .links a {
+        color: var(--primary-light);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      .links a:hover {
+        color: var(--accent);
+      }
+
+      .toast {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        padding: 14px 20px;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        max-width: 380px;
+      }
+
+      .toast.error {
+        background: rgba(248, 113, 113, 0.15);
+        border: 1px solid rgba(248, 113, 113, 0.3);
+        color: var(--error);
+        backdrop-filter: blur(12px);
+      }
+
+      .toast.success {
+        background: rgba(52, 211, 153, 0.15);
+        border: 1px solid rgba(52, 211, 153, 0.3);
+        color: var(--success);
+        backdrop-filter: blur(12px);
+      }
+
+      .toast svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+
+      .toast.hide {
+        animation: toastOut 0.3s ease forwards;
+      }
+
+      @keyframes toastIn {
+        from { opacity: 0; transform: translateX(40px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+
+      @keyframes toastOut {
+        to { opacity: 0; transform: translateX(40px); }
+      }
+
+      .spinner-ring {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          padding: 32px 24px;
+          border-radius: 16px;
+        }
+        .header h1 {
+          font-size: 22px;
+        }
+        .toast {
+          right: 12px;
+          left: 12px;
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-orbs">
+      <div class="orb"></div>
+      <div class="orb"></div>
+      <div class="orb"></div>
+    </div>
+
+    <div class="card">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+        </div>
+        <span class="brand-name">EduSmart</span>
+      </div>
+
+      <div class="header">
+        <h1>Chào mừng trở lại</h1>
+        <p>Đăng nhập để tiếp tục học tập</p>
+      </div>
+
+      <div id="toast"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Tên đăng nhập</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input id="username" type="text" placeholder="Nhập tên đăng nhập" required autocomplete="username" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input id="password" type="password" placeholder="Nhập mật khẩu" required autocomplete="current-password" />
+            <button type="button" class="toggle-pw" onclick="togglePw('password', this)" tabindex="-1">
+              <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-closed" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-primary">Đăng nhập</button>
+      </form>
+
+      <div class="divider"><span>hoặc</span></div>
+
+      <div class="links">
+        <a href="forgot-password.html">Quên mật khẩu?</a>
+        <a href="register.html">Chưa có tài khoản? Đăng ký ngay</a>
+      </div>
+    </div>
+
+    <script>
+      const API_URL = "http://127.0.0.1:5000";
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const username = localStorage.getItem("auth_username");
+        const token = localStorage.getItem("auth_token");
+        if (username && token) {
+          verifyAndRedirect(username, token);
+        }
+      });
+
+      async function verifyAndRedirect(username, token) {
+        try {
+          const res = await fetch(API_URL + "/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, token }),
+          });
+          const data = await res.json();
+          if (data.valid) {
+            window.location.href = "index.html";
+          }
+        } catch (e) {}
+      }
+
+      function togglePw(id, btn) {
+        const input = document.getElementById(id);
+        const open = btn.querySelector('.eye-open');
+        const closed = btn.querySelector('.eye-closed');
+        if (input.type === 'password') {
+          input.type = 'text';
+          open.style.display = 'none';
+          closed.style.display = 'block';
+        } else {
+          input.type = 'password';
+          open.style.display = 'block';
+          closed.style.display = 'none';
+        }
+      }
+
+      function showToast(msg, type) {
+        const el = document.getElementById('toast');
+        const icon = type === 'error'
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+        el.innerHTML = '<div class="toast ' + type + '">' + icon + '<span>' + msg + '</span></div>';
+        setTimeout(function() {
+          const toast = el.querySelector('.toast');
+          if (toast) {
+            toast.classList.add('hide');
+            setTimeout(function() { el.innerHTML = ''; }, 300);
+          }
+        }, 4000);
+      }
+
+      document.getElementById("loginForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+        const submitBtn = document.getElementById("submitBtn");
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-ring"></span>Đang đăng nhập...';
+
+        try {
+          const res = await fetch(API_URL + "/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await res.json();
+
+          if (data.success) {
+            localStorage.setItem("auth_token", data.token);
+            localStorage.setItem("auth_username", data.username);
+            showToast("Đăng nhập thành công!", "success");
+            setTimeout(function () {
+              window.location.href = "index.html";
+            }, 600);
+          } else {
+            showToast(data.message, "error");
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Đăng nhập";
+          }
+        } catch (error) {
+          showToast("Không thể kết nối đến server", "error");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Đăng nhập";
+        }
+      });
+    </script>
+  </body>
+</html>
