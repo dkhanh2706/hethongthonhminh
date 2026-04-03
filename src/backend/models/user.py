@@ -33,7 +33,8 @@ def _hash_password(password):
     return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
 
-def register_user(username, email, password):
+def register_user(username, email, password, code=None):
+    ADMIN_CODE = "123"
     users = _load_users()
 
     if username in users:
@@ -43,13 +44,16 @@ def register_user(username, email, password):
         if user_data.get("email") == email:
             return {"success": False, "message": "Email đã được sử dụng"}
 
+    role = "admin" if code == ADMIN_CODE else "user"
+
     users[username] = {
         "email": email,
         "password": _hash_password(password),
-        "token": None
+        "token": None,
+        "role": role
     }
     _save_users(users)
-    return {"success": True, "message": "Đăng ký thành công"}
+    return {"success": True, "message": "Đăng ký thành công", "role": role}
 
 
 def login_user(username, password):
@@ -66,7 +70,32 @@ def login_user(username, password):
     users[username]["token"] = token
     _save_users(users)
 
-    return {"success": True, "message": "Đăng nhập thành công", "token": token, "username": username}
+    return {"success": True, "message": "Đăng nhập thành công", "token": token, "username": username, "role": user.get("role", "user")}
+
+
+def admin_login_user(username, password, code):
+    ADMIN_CODE = "123"
+
+    if code != ADMIN_CODE:
+        return {"success": False, "message": "Mã quản trị không đúng"}
+
+    users = _load_users()
+
+    if username not in users:
+        return {"success": False, "message": "Tên đăng nhập hoặc mật khẩu không đúng"}
+
+    user = users[username]
+    if user["password"] != _hash_password(password):
+        return {"success": False, "message": "Tên đăng nhập hoặc mật khẩu không đúng"}
+
+    if user.get("role") != "admin":
+        return {"success": False, "message": "Tài khoản này không có quyền quản trị"}
+
+    token = secrets.token_hex(32)
+    users[username]["token"] = token
+    _save_users(users)
+
+    return {"success": True, "message": "Đăng nhập quản trị thành công", "token": token, "username": username, "role": "admin"}
 
 
 def verify_token(username, token):
@@ -101,3 +130,34 @@ def logout_user(username):
         users[username]["token"] = None
         _save_users(users)
     return {"success": True, "message": "Đã đăng xuất"}
+
+
+def list_users():
+    users = _load_users()
+    user_list = []
+    for username, data in users.items():
+        user_list.append({
+            "username": username,
+            "email": data.get("email", ""),
+            "role": data.get("role", "user")
+        })
+    return {"success": True, "users": user_list}
+
+
+def delete_user(username):
+    users = _load_users()
+    if username not in users:
+        return {"success": False, "message": "Người dùng không tồn tại"}
+    del users[username]
+    _save_users(users)
+    return {"success": True, "message": "Đã xóa tài khoản thành công"}
+
+
+def change_user_password(username, new_password):
+    users = _load_users()
+    if username not in users:
+        return {"success": False, "message": "Người dùng không tồn tại"}
+    users[username]["password"] = _hash_password(new_password)
+    users[username]["token"] = None
+    _save_users(users)
+    return {"success": True, "message": "Đã đổi mật khẩu thành công"}
