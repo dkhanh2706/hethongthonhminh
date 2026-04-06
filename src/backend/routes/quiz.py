@@ -8,7 +8,8 @@ from services.quiz_engine import (
     analyze_with_fuzzy,
     compare_methods,
     save_quiz_session,
-    get_quiz_history
+    get_quiz_history,
+    get_all_quiz_history
 )
 from services.ml_model import get_predictor
 
@@ -143,4 +144,31 @@ def ml_metrics():
     return jsonify({
         "success": True,
         "metrics": predictor.training_metrics
+    })
+
+
+@quiz_bp.route('/quiz/history/all', methods=['GET'])
+def all_history():
+    sessions = get_all_quiz_history()
+    return jsonify({
+        "success": True,
+        "history": sessions
+    })
+
+
+@quiz_bp.route('/quiz/suggestions', methods=['POST'])
+def get_suggestions():
+    data = request.json
+    username = data.get("username", "").strip()
+    question_count = int(data.get("question_count", 10))
+    
+    if not username:
+        return jsonify({"success": False, "message": "Thiếu tên người dùng"}), 400
+    
+    from services.adaptive_engine import recommend_questions
+    suggestions = recommend_questions(username, count=5)
+    
+    return jsonify({
+        "success": True,
+        "suggestions": suggestions
     })

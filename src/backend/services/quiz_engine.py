@@ -121,25 +121,32 @@ def check_answers(quiz_questions, answers):
 
 
 def get_recommendation(correct_count, total=10):
-    if correct_count <= 5:
+    recommendation = get_recommendation_by_count(total)
+    recommendation["correct_count"] = correct_count
+    recommendation["total"] = total
+    return recommendation
+
+
+def get_recommendation_by_count(question_count):
+    if question_count < 5:
         return {
             "level": "easy",
             "level_label": "Dễ",
-            "message": f"Bạn trả lời đúng {correct_count}/{total} câu. Hệ thống sẽ gợi ý câu hỏi dễ để củng cố kiến thức.",
+            "message": f"Bạn hoàn thành {question_count} câu. Hệ thống sẽ gợi ý câu hỏi dễ để củng cố kiến thức.",
             "suggestion": "Tập trung vào các kiến thức cơ bản, đọc kỹ lý thuyết trước khi làm bài."
         }
-    elif correct_count <= 8:
+    elif question_count <= 8:
         return {
             "level": "normal",
             "level_label": "Trung bình",
-            "message": f"Bạn trả lời đúng {correct_count}/{total} câu. Hệ thống sẽ gợi ý câu hỏi trung bình để nâng cao.",
+            "message": f"Bạn hoàn thành {question_count} câu. Hệ thống sẽ gợi ý câu hỏi trung bình để nâng cao.",
             "suggestion": "Tiếp tục luyện tập với mức độ trung bình, xen kẽ câu dễ và khó."
         }
     else:
         return {
             "level": "hard",
             "level_label": "Khó",
-            "message": f"Bạn trả lời đúng {correct_count}/{total} câu. Xuất sắc! Hệ thống sẽ gợi ý câu hỏi khó.",
+            "message": f"Bạn hoàn thành {question_count} câu. Xuất sắc! Hệ thống sẽ gợi ý câu hỏi khó.",
             "suggestion": "Thử thách bản thân với các câu hỏi nâng cao và tổng hợp."
         }
 
@@ -169,9 +176,14 @@ def compare_methods(score, study_time, improvement):
 
 
 def save_quiz_session(username, session_data):
+    from datetime import datetime
     history = _load_history()
     if username not in history:
         history[username] = []
+    
+    session_data["created_at"] = datetime.now().isoformat()
+    session_data["session_id"] = "session_" + str(len(history[username]) + 1) + "_" + str(int(datetime.now().timestamp()))
+    
     history[username].append(session_data)
     _save_history(history)
 
@@ -179,3 +191,22 @@ def save_quiz_session(username, session_data):
 def get_quiz_history(username):
     history = _load_history()
     return history.get(username, [])
+
+
+def get_all_quiz_history():
+    history = _load_history()
+    all_sessions = []
+    for username, sessions in history.items():
+        for session in sessions:
+            all_sessions.append({
+                "username": username,
+                "session_id": session.get("session_id", ""),
+                "score": session.get("score", 0),
+                "correct_count": session.get("correct_count", 0),
+                "total": session.get("total", 0),
+                "study_time": session.get("study_time", 0),
+                "created_at": session.get("created_at", ""),
+                "recommendation": session.get("recommendation", {})
+            })
+    all_sessions.sort(key=lambda x: x.get("created_at", ""), reverse=True)
+    return all_sessions
