@@ -4,6 +4,7 @@ from models.model import recommend_question
 from routes.auth import auth_bp
 from routes.learning import learning_bp
 from routes.quiz import quiz_bp
+from routes.questions import questions_bp
 
 app = Flask(__name__)
 CORS(app)
@@ -11,6 +12,7 @@ CORS(app)
 app.register_blueprint(auth_bp)
 app.register_blueprint(learning_bp)
 app.register_blueprint(quiz_bp)
+app.register_blueprint(questions_bp)
 
 @app.route("/", methods=["GET"])
 def home():

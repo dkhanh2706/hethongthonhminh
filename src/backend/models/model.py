@@ -99,3 +99,63 @@ def get_analysis(username):
 
 def get_question_bank():
     return _load_question_bank()
+
+
+def get_weekly_statistics():
+    import json
+    import os
+    from datetime import datetime, timedelta
+
+    data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'data')
+    history_file = os.path.join(data_dir, 'quiz_history.json')
+
+    try:
+        with open(history_file, 'r', encoding='utf-8') as f:
+            history_data = json.load(f)
+    except:
+        history_data = {}
+
+    today = datetime.now()
+    start_of_week = today - timedelta(days=today.weekday())
+    
+    daily_data = []
+    for i in range(7):
+        day = start_of_week + timedelta(days=i)
+        day_str = day.strftime('%Y-%m-%d')
+        
+        worker_count = 0
+        task_count = 0
+        work_rate = 0
+        
+        for username, sessions in history_data.items():
+            for session in sessions:
+                if 'created_at' in session and session['created_at'].startswith(day_str):
+                    worker_count += 1
+                    task_count += session.get('total', 0)
+        
+        if task_count > 0 and worker_count > 0:
+            work_rate = min((task_count / worker_count) * 10, 100)
+        elif worker_count > 0:
+            work_rate = 5
+        
+        daily_data.append({
+            'day': day.strftime('%a'),
+            'date': day_str,
+            'worker_count': worker_count,
+            'task_count': task_count,
+            'work_rate': round(work_rate, 1)
+        })
+
+    total_workers = sum(d['worker_count'] for d in daily_data)
+    total_tasks = sum(d['task_count'] for d in daily_data)
+
+    return {
+        'success': True,
+        'data': {
+            'week_start': start_of_week.strftime('%Y-%m-%d'),
+            'week_end': today.strftime('%Y-%m-%d'),
+            'total_workers': total_workers,
+            'total_tasks': total_tasks,
+            'daily_data': daily_data
+        }
+    }
