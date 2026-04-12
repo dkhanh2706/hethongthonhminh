@@ -12,6 +12,7 @@ from services.quiz_engine import (
     get_all_quiz_history
 )
 from services.ml_model import get_predictor
+from routes.questions import load_questions
 
 quiz_bp = Blueprint('quiz', __name__)
 
@@ -69,6 +70,7 @@ def submit_quiz():
         "total": result["total"],
         "study_time": study_time,
         "mistakes": mistakes,
+        "questions": questions,
         "recommendation": recommendation,
         "ml_analysis": ml_result,
         "fuzzy_analysis": fuzzy_result,
@@ -171,4 +173,40 @@ def get_suggestions():
     return jsonify({
         "success": True,
         "suggestions": suggestions
+    })
+
+
+@quiz_bp.route('/quiz/lesson', methods=['POST'])
+def get_lesson():
+    data = request.json
+    username = data.get("username", "").strip()
+    
+    if not username:
+        return jsonify({"success": False, "message": "Thiếu tên người dùng"}), 400
+    
+    all_questions = load_questions()
+    questions_list = all_questions.get("questions", [])
+    
+    if not questions_list or len(questions_list) == 0:
+        return jsonify({
+            "success": True,
+            "lesson": [],
+            "message": "Chưa có câu hỏi nào trong ngân hàng"
+        })
+    
+    lesson_items = []
+    for q in questions_list:
+        lesson_items.append({
+            "id": q.get("id", ""),
+            "content": q.get("content", ""),
+            "difficulty": q.get("difficulty", "normal"),
+            "correct_answer": q.get("correct_answer", ""),
+            "options": q.get("options", []),
+            "topic": q.get("topic", "General")
+        })
+    
+    return jsonify({
+        "success": True,
+        "lesson": lesson_items,
+        "total": len(lesson_items)
     })
